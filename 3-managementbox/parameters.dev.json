@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "northeurope"
+    },
+    "networkInterfaceName": {
+      "value": "dev-ne-nic-vmjumpbox-howtoaks"
+    },
+    "subnetName": {
+      "value": "dev-ne-snt-management-howtoaks"
+    },
+    "virtualNetworkId": {
+      "value": "/subscriptions/your-susbcription-id/resourceGroups/dev-ne-rg-howtoaks/providers/Microsoft.Network/virtualNetworks/dev-ne-vnt-howtoaks"
+    },
+    "virtualMachineName": {
+      "value": "dev-ne-vmjb"
+    },
+    "virtualMachineRG": {
+      "value": "dev-ne-rg-howtoaks"
+    },
+    "osDiskType": {
+      "value": "Premium_LRS"
+    },
+    "virtualMachineSize": {
+      "value": "Standard_DS2_v2"
+    },
+    "adminUsername": {
+      "value": "msoumare"
+    },
+    "adminPassword": {
+      "value": ""
+    },
+    "diagnosticsStorageAccountName": {
+      "value": "devnestavmjbhowtoaks"
+    },
+    "diagnosticsStorageAccountId": {
+      "value": "Microsoft.Storage/storageAccounts/devnestavmjumpboxhowtoaks"
+    },
+    "diagnosticsStorageAccountType": {
+      "value": "Standard_LRS"
+    },
+    "diagnosticsStorageAccountKind": {
+      "value": "Storage"
+    },
+    "availabilitySetName": {
+      "value": "dev-ne-avs-howtoaks"
+    },
+    "availabilitySetPlatformFaultDomainCount": {
+      "value": 2
+    },
+    "availabilitySetPlatformUpdateDomainCount": {
+      "value": 5
+    }
+  }
+}

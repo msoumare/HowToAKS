@@ -1,0 +1,272 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string"
+    },
+    "virtualNetworkName": {
+      "type": "string"
+    },
+    "resourceGroup": {
+      "type": "string"
+    },
+    "virtualNetworkAddressSpace": {
+      "type": "string"
+    },
+    "ipv6Enabled": {
+      "type": "bool"
+    },
+    "subnetCount": {
+      "type": "int"
+    },
+    "subnetAzureKubernetesService": {
+      "type": "string"
+    },
+    "subnetAzureKubernetesServiceAddressRange": {
+      "type": "string"
+    },
+    "subnetApplicationGateway": {
+      "type": "string"
+    },
+    "subnetApplicationGatewayAddressRange": {
+      "type": "string"
+    },
+    "subnetBastion": {
+      "type": "string"
+    },
+    "subnetBastionAddressRange": {
+      "type": "string"
+    },
+    "networkSecurityGroupBastion": {
+      "type": "string"
+    },
+    "bastionName": {
+      "type": "string"
+    },
+    "publicIpAddressForBastion": {
+      "type": "string"
+    },
+    "subnetManagement": {
+      "type": "string"
+    },
+    "subnetManagementAddressRange": {
+      "type": "string"
+    },
+    "networkSecurityGroupManagement": {
+      "type": "string"
+    }
+  },
+    "variables": {},
+  "resources": [
+    {
+      "apiVersion": "2019-09-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('networkSecurityGroupBastion')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "Allow_Inbound_GatewayManager",
+            "properties": {
+              "description": "Allow Ingress Traffic from Azure Bastion Gateway Manager",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "GatewayManager",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Allow_Inbound_AzureCloud",
+            "properties": {
+              "description": "Allow Inbound from AzureCloud",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "AzureCloud",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Allow_Https_Inbound",
+            "properties": {
+              "description": "Allow Https through port 443 from the Internet",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Allow_SSH_Outbound",
+            "properties": {
+              "description": "Egress Traffic to target VMs: Azure Bastion will reach the target VMs over private IP and SSH port",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "VirtualNetwork",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "Allow_RDP_Outbound",
+            "properties": {
+              "description": "Egress Traffic to target VMs: Azure Bastion will reach the target VMs over private IP and RDP port",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "VirtualNetwork",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "Allow_OutBound_AzureCloud",
+            "properties": {
+              "description": "Egress Traffic to other public endpoints in Azure",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "AzureCloud",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Outbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2019-09-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('networkSecurityGroupManagement')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "Allow_RDP_SSH_From_AzureBastion",
+            "properties": {
+              "description": "Ingress Traffic from Azure Bastion",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRanges": [
+                "3389",
+                "22"
+              ],
+              "sourceAddressPrefix": "[parameters('subnetBastionAddressRange')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('virtualNetworkName')]",
+      "type": "Microsoft.Network/VirtualNetworks",
+      "apiVersion": "2019-09-01",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupBastion'))]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupManagement'))]"
+      ],
+      "tags": {},
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('virtualNetworkAddressSpace')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('subnetAzureKubernetesService')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnetAzureKubernetesServiceAddressRange')]"
+            }
+          },
+          {
+            "name": "[parameters('subnetApplicationGateway')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnetApplicationGatewayAddressRange')]"
+            }
+          },
+          {
+            "name": "[parameters('subnetBastion')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnetBastionAddressRange')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupBastion'))]"
+              }
+            }
+          },
+          {
+            "name": "[parameters('subnetManagement')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnetManagementAddressRange')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupManagement'))]"
+              }
+            }
+          }
+        ]
+      }
+
+    },
+    {
+      "type": "Microsoft.Network/publicIpAddresses",
+      "apiVersion": "2019-02-01",
+      "name": "[parameters('publicIpAddressForBastion')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
+      "type": "Microsoft.Network/bastionHosts",
+      "apiVersion": "2019-04-01",
+      "name": "[parameters('bastionName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId(parameters('resourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "[resourceId(parameters('resourceGroup'), 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressForBastion'))]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "IpConf",
+            "properties": {
+              "subnet": {
+                "id": "[resourceId(parameters('resourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetBastion'))]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId(parameters('resourceGroup'), 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressForBastion'))]"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

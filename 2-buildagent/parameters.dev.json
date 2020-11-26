@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "northeurope"
+    },
+    "networkInterfaceName": {
+      "value": "dev-ne-nic-vmbuildagent-howtoaks"
+    },
+    "subnetName": {
+      "value": "dev-ne-snt-management-howtoaks"
+    },
+    "virtualNetworkId": {
+      "value": "/subscriptions/your-subscription-id/resourceGroups/dev-ne-rg-howtoaks/providers/Microsoft.Network/virtualNetworks/dev-ne-vnt-howtoaks"
+    },
+    "publicIpAddressName": {
+      "value": "dev-ne-pip-vmbuildagent-howtoaks"
+    },
+    "publicIpAddressType": {
+      "value": "Dynamic"
+    },
+    "publicIpAddressSku": {
+      "value": "Basic"
+    },
+    "virtualMachineName": {
+      "value": "dev-ne-vmba"
+    },
+    "virtualMachineRG": {
+      "value": "dev-ne-rg-howtoaks"
+    },
+    "osDiskType": {
+      "value": "Premium_LRS"
+    },
+    "virtualMachineSize": {
+      "value": "Standard_DS2_v2"
+    },
+    "adminUsername": {
+      "value": "msoumare"
+    },
+    "adminPassword": {
+      "value": ""
+    },
+    "diagnosticsStorageAccountName": {
+      "value": "devnestavmbahowtoaks"
+    },
+    "diagnosticsStorageAccountId": {
+      "value": "Microsoft.Storage/storageAccounts/devnestavmbuildagenthowtoaks"
+    },
+    "diagnosticsStorageAccountType": {
+      "value": "Standard_LRS"
+    },
+    "diagnosticsStorageAccountKind": {
+      "value": "Storage"
+    },
+    "availabilitySetName": {
+      "value": "dev-ne-avs-howtoaks"
+    },
+    "availabilitySetPlatformFaultDomainCount": {
+      "value": 2
+    },
+    "availabilitySetPlatformUpdateDomainCount": {
+      "value": 5
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "northeurope"
+    },
+    "virtualNetworkName": {
+      "value": "dev-ne-vnt-howtoaks"
+    },
+    "resourceGroup": {
+      "value": "dev-ne-rg-howtoaks"
+    },
+    "virtualNetworkAddressSpace": {
+      "value": "10.1.0.0/20"
+    },
+    "ipv6Enabled": {
+      "value": false
+    },
+    "subnetCount": {
+      "value": 3
+    },
+    "subnetAzureKubernetesService": {
+      "value": "dev-ne-snt-aks-howtoaks"
+    },
+    "subnetAzureKubernetesServiceAddressRange": {
+      "value": "10.1.0.0/21"
+    },
+    "subnetApplicationGateway": {
+      "value": "dev-ne-snt-agw-howtoaks"
+    },
+    "subnetApplicationGatewayAddressRange": {
+      "value": "10.1.8.0/27"
+    },
+    "subnetBastion": {
+      "value": "AzureBastionSubnet"
+    },
+    "subnetBastionAddressRange": {
+      "value": "10.1.8.32/27"
+    },
+    "bastionName": {
+      "value": "dev-ne-bastion-howtoaks"
+    },
+    "publicIpAddressForBastion": {
+      "value": "dev-ne-pip-bastion-howtoaks"
+    },
+    "networkSecurityGroupBastion": {
+      "value": "dev-ne-nsg-bastion-howtoaks"
+    },
+    "subnetManagement": {
+      "value": "dev-ne-snt-management-howtoaks"
+    },
+    "subnetManagementAddressRange": {
+      "value": "10.1.8.64/27"
+    },
+    "networkSecurityGroupManagement": {
+      "value": "dev-ne-nsg-management-howtoaks"
+    }
+  }
+}

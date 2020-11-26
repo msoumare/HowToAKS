@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "northeurope"
+    },
+    "applicationGatewayName": {
+      "value": "dev-ne-agw-howtoaks"
+    },
+    "tier": {
+      "value": "Standard_v2"
+    },
+    "skuSize": {
+      "value": "Standard_v2"
+    },
+    "capacity": {
+      "value": 0
+    },
+    "subnetName": {
+      "value": "dev-ne-snt-agw-howtoaks"
+    },
+    "zones": {
+      "value": []
+    },
+    "autoScaleMaxCapacity": {
+      "value": 10
+    }
+  }
+}

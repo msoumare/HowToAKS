@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToAKS.Web", "HowToAKS.Web\HowToAKS.Web.csproj", "{EC27C83D-D6F3-46BF-91C6-B8D99AE31839}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToAKS.WebApi", "HowToAKS.WebApi\HowToAKS.WebApi.csproj", "{E1167E0D-7C90-4250-A561-F670DF904C21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13080A30-1F01-4882-BFAC-0C359465962F}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		kubernetes.yml = kubernetes.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC27C83D-D6F3-46BF-91C6-B8D99AE31839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC27C83D-D6F3-46BF-91C6-B8D99AE31839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC27C83D-D6F3-46BF-91C6-B8D99AE31839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC27C83D-D6F3-46BF-91C6-B8D99AE31839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1167E0D-7C90-4250-A561-F670DF904C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1167E0D-7C90-4250-A561-F670DF904C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1167E0D-7C90-4250-A561-F670DF904C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1167E0D-7C90-4250-A561-F670DF904C21}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E72A7A0-FB66-449E-8BA1-9169BA36ACB6}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,19 @@
+{
+  "FilePath": "c:\\Code\\Containers\\HowToAKS\\HowToAKS\\10-app\\HowToAKS.WebApi\\HowToAKS.WebApi.csproj",
+  "Configuration": {
+    "ConfigurationName": "MVC-2.1",
+    "LanguageVersion": "2.1",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-2.1"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 703
+  },
+  "RootNamespace": "HowToAKS.WebApi",
+  "Documents": [],
+  "SerializationFormat": "0.2"
+}

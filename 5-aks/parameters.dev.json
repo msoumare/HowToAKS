@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourceName": {
+      "value": "dev-ne-aks-howtoaks"
+    },
+    "location": {
+      "value": "northeurope"
+    },
+    "dnsPrefix": {
+      "value": "dev-ne-aks-howtoaks-dns"
+    },
+    "kubernetesVersion": {
+      "value": "1.16.13"
+    },
+    "networkPlugin": {
+      "value": "azure"
+    },
+    "enableRBAC": {
+      "value": true
+    },
+    "adminGroupObjectIDs": {
+      "value": [
+        "azure-ad-group-id"
+      ]
+    },
+    "enablePrivateCluster": {
+      "value": true
+    },
+    "enableHttpApplicationRouting": {
+      "value": false
+    },
+    "vmssNodePool": {
+      "value": true
+    },
+    "vnetSubnetID": {
+      "value": "/subscriptions/your-subscription-id/resourceGroups/dev-ne-rg-howtoaks/providers/Microsoft.Network/virtualNetworks/dev-ne-vnt-howtoaks/subnets/dev-ne-snt-aks-howtoaks"
+    },
+    "serviceCidr": {
+      "value": "10.0.0.0/16"
+    },
+    "dnsServiceIP": {
+      "value": "10.0.0.10"
+    },
+    "dockerBridgeCidr": {
+      "value": "172.17.0.1/16"
+    },
+    "workspaceName": {
+      "value": "dev-ne-lgaws-howtoaks"
+    },
+    "omsWorkspaceId": {
+      "value": "/subscriptions/your-subscription-id/resourceGroups/DefaultResourceGroup-NEU/providers/Microsoft.OperationalInsights/workspaces/dev-ne-lgaws-howtoaks"
+    },
+    "workspaceRegion": {
+      "value": "northeurope"
+    },
+    "networkPolicy": {
+      "value": "azure"
+    },
+    "acrName": {
+      "value": "devneacrhowtoaks"
+    },
+    "acrResourceGroup": {
+      "value": "dev-ne-rg-howtoaks"
+    }
+  }
+}
